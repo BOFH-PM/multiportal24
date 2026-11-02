@@ -17,3 +17,8 @@ applications:
     namespace: multiportale-dev
     service: front-demo
     port: 80
+  - domain: config-test.apps.multi.bofh.pm
+    namespace: multiportale-dev
+    service: front-demo
+    port: 80
+    health_path: /
