@@ -3,7 +3,7 @@ root=pathlib.Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('catalog',root/'scripts/catalog.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class CatalogTest(unittest.TestCase):
  def setUp(self):self.data=yaml.safe_load((root/'catalog/apps.yml').read_text())
- def test_valid(self):self.assertEqual(len(m.render(self.data)[0]['application_routes']),4)
+ def test_valid(self):self.assertEqual(len(m.render(self.data)[0]['application_routes']),len(self.data['applications']))
  def test_reserved_domains_and_injection(self):
   for v in ['rancher.multi.bofh.pm','api.multi.bofh.pm','zabbix.multi.bofh.pm','*.apps.multi.bofh.pm','x.apps.multi.bofh.pm\nbackend injected']:
    with self.subTest(v=v):
