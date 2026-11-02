@@ -26,6 +26,10 @@ Wymagane pola:
 - `port` — port Service; dla publicznego HTTP zawsze `80`;
 - `health_path` — opcjonalna ścieżka kontroli zdrowia; domyślnie `/`.
 
+Publiczny rekord A domeny musi zostać utworzony przed zgłoszeniem i wskazywać
+na `188.68.243.210`. Automat jedynie sprawdza DNS; nie tworzy ani nie zmienia
+rekordów.
+
 Nie wpisuj adresów podów, workerów, NodePortów ani fragmentów
 konfiguracji proxy. Nie umieszczaj sekretów, tokenów, kubeconfigów,
 certyfikatów ani kluczy.
