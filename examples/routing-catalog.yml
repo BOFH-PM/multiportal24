@@ -1,7 +1,7 @@
 version: 1
 applications:
-  - domain: crm.apps.multi.bofh.pm
-    namespace: bofh
-    service: crm-web
-    port: 8080
+  - domain: portal-demo.apps.multi.bofh.pm
+    namespace: multiportale-dev
+    service: portal-web
+    port: 80
     health_path: /healthz

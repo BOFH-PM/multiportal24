@@ -23,6 +23,9 @@ class CatalogTest(unittest.TestCase):
  def test_port_not_boolean(self):
   self.data['applications'][0]['port']=True
   with self.assertRaises(ValueError):m.validate(self.data)
+ def test_public_service_port_is_standardized(self):
+  self.data['applications'][0]['port']=8080
+  with self.assertRaises(ValueError):m.validate(self.data)
  def test_unknown_backend_ip_field(self):
   self.data['applications'][0]['ip']='127.0.0.1'
   with self.assertRaises(ValueError):m.validate(self.data)

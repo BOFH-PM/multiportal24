@@ -1,7 +1,7 @@
 ## Public routing request
 
 - [ ] Zmieniam wyłącznie dane potrzebne do routingu.
-- [ ] Domena, namespace, Service i port są poprawne.
+- [ ] Domena, namespace i Service są poprawne; publiczny Service wystawia port 80.
 - [ ] Service istnieje i ma gotowe endpointy.
 - [ ] `health_path`, jeżeli podany, zwraca HTTP 200 bez logowania.
 - [ ] Nie umieszczam sekretów, tokenów, kubeconfigów ani kluczy.
