@@ -1,3 +1,4 @@
+# Pipeline acceptance marker; this comment does not alter generated routes.
 version: 1
 applications:
   - domain: test.multi.bofh.pm
