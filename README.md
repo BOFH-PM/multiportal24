@@ -11,10 +11,10 @@ Edytuj wyłącznie `catalog/apps.yml`. Każdy wpis zawiera:
 ```yaml
 version: 1
 applications:
-  - domain: crm.apps.multi.bofh.pm
-    namespace: bofh
-    service: crm-web
-    port: 8080
+  - domain: portal-demo.apps.multi.bofh.pm
+    namespace: multiportale-dev
+    service: portal-web
+    port: 80
     health_path: /healthz
 ```
 
@@ -23,12 +23,33 @@ Wymagane pola:
 - `domain` — publiczna nazwa aplikacji;
 - `namespace` — namespace Kubernetes;
 - `service` — stabilna nazwa Kubernetes Service;
-- `port` — port Service, nie `containerPort`;
+- `port` — port Service; dla publicznego HTTP zawsze `80`;
 - `health_path` — opcjonalna ścieżka kontroli zdrowia; domyślnie `/`.
+
+Publiczny rekord A domeny musi zostać utworzony przed zgłoszeniem i wskazywać
+na `188.68.243.210`. Automat jedynie sprawdza DNS; nie tworzy ani nie zmienia
+rekordów.
 
 Nie wpisuj adresów podów, workerów, NodePortów ani fragmentów
 konfiguracji proxy. Nie umieszczaj sekretów, tokenów, kubeconfigów,
 certyfikatów ani kluczy.
+
+## Jak wskazywane są pody
+
+Deweloper wdraża Deployment i selektorowy Service `ClusterIP` w tym samym
+namespace. Etykiety podów muszą odpowiadać `spec.selector` Service. Przykład
+znajduje się w `examples/application.yml`.
+
+Service wystawia stabilny port `80`. Aplikacja w kontenerze może słuchać na
+innym porcie; wtedy Service mapuje `port: 80` na odpowiedni `targetPort`.
+Katalog zawsze podaje `port: 80`, czyli `Service.spec.ports[].port`, nigdy
+`containerPort` ani `targetPort`.
+
+Po merge automat tworzy Ingress z `ingressClassName: traefik`. Traefik odczytuje
+Ingress, Service i gotowe EndpointSlices z API Kubernetes, dlatego katalog nie
+zawiera adresów podów. Przed publikacją automat sprawdza istnienie namespace,
+selektorowego Service `ClusterIP`, portu 80 i co najmniej jednego gotowego
+endpointu. Brak któregokolwiek elementu zatrzymuje wdrożenie.
 
 ## Praca przez fork i Pull Request
 

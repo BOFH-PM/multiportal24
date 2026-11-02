@@ -26,7 +26,7 @@ def validate(data):
         hosts.add(h)
         if a['namespace'] not in APPLICATION_NAMESPACES:raise ValueError('Namespace outside application scope')
         if not isinstance(a['service'],str) or not re.fullmatch(r'[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?',a['service']):raise ValueError('Invalid Service name')
-        if type(a['port']) is not int or not 1<=a['port']<=65535:raise ValueError('Expected Service port 1..65535')
+        if type(a['port']) is not int or a['port']!=80:raise ValueError('Public HTTP Service must expose port 80')
         health_path=a.get('health_path','/')
         if not isinstance(health_path,str) or len(health_path)>256 or not re.fullmatch(r'/[A-Za-z0-9._~/%:+-]*',health_path):raise ValueError('Invalid health path')
         if a['namespace']=='acceptance' and (a['service'] not in ['echo','web'] or a['port']!=80):raise ValueError('Acceptance only permits existing test services')
