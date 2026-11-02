@@ -1,0 +1,18 @@
+version: 1
+applications:
+  - domain: test.multi.bofh.pm
+    namespace: acceptance
+    service: echo
+    port: 80
+  - domain: echo.apps.multi.bofh.pm
+    namespace: acceptance
+    service: echo
+    port: 80
+  - domain: web.apps.multi.bofh.pm
+    namespace: acceptance
+    service: web
+    port: 80
+  - domain: routing-check.apps.multi.bofh.pm
+    namespace: multiportale-dev
+    service: front-demo
+    port: 80
