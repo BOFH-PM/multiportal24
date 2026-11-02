@@ -1,0 +1,20 @@
+name: Validate routing catalog
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - run: python3 -m pip install -r requirements.txt
+      - run: python3 -m unittest discover -s tests
+      - run: python3 scripts/catalog.py catalog/apps.yml --output build
