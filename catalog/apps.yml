@@ -22,3 +22,8 @@ applications:
     service: front-demo
     port: 80
     health_path: /
+  - domain: belchatow.apps.multi.bofh.pm
+    namespace: slezak
+    service: portal-belchatow
+    port: 80
+    health_path: /
